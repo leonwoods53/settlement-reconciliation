@@ -24,14 +24,24 @@ I based this on the post-trade settlement model in the [zerohash API docs](https
 
 | Break | Meaning |
 |---|---|
-| Missing trade | _TODO: rule_ |
-| Amount mismatch | _TODO: rule_ |
-| Unsettled past due | _TODO: rule_ |
-| Settled twice | _TODO: rule_ |
+| Missing trade | A settlement arrived, but no trade created an obligation for it |
+| Amount mismatch | The settled amount is different from the net amount owed |
+| Unsettled past due | Something is owed, nothing has settled, and the settlement date has passed |
+| Settled twice | Two or more settlements arrived for the same obligation |
+| Settled late | The amount is right, but it settled after the settlement date |
+
+Settlements are matched against netted totals per counterparty, asset and settlement date, not against individual trades.
 
 ## Data model
 
-_TODO: the `trades`, `settlements` and `breaks` tables and their columns._
+Defined in [`schema.sql`](schema.sql):
+
+- **`trades`**: executed trades, one row each (buyer, seller, asset, quantity, price, currency, settlement date).
+- **`obligations`**: what each counterparty owes or is owed, per asset, per settlement date, after netting.
+- **`settlements`**: what actually settled.
+- **`breaks`**: every problem the reconciliation finds.
+
+Amounts are stored as text and calculated with Python's `Decimal`, so they stay exact. Floating point would introduce rounding errors that show up as fake mismatches.
 
 ## How to run
 
