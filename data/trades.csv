@@ -1,0 +1,6 @@
+client_trade_id,buyer,seller,asset,quantity,price,currency,traded_at,settlement_date
+T001,alice,bob,BTC,1.0,68000.00,USD,2026-11-09T10:15:00Z,2026-11-10
+T002,bob,alice,BTC,0.4,68250.00,USD,2026-11-09T11:02:00Z,2026-11-10
+T003,carol,alice,ETH,10,2450.50,USD,2026-11-09T13:40:00Z,2026-11-10
+T004,alice,carol,BTC,0.25,68100.00,USD,2026-11-09T15:30:00Z,2026-11-10
+T005,bob,carol,ETH,5,2448.00,USD,2026-11-10T09:05:00Z,2026-11-11
